@@ -1,9 +1,9 @@
-# 🛡️ Advanced Email/SMS Spam Classifier Pro
+# 🛡️ Advanced AI Spam Detector Pro
 
 An end-to-end Machine Learning web application that analyzes incoming text messages and email contents to detect fraudulent phishing scams, promotional spam, and hazardous links with high mathematical precision.
 
-## 🚀 Live Demo Link
-👉 **[Insert your live Streamlit website URL here after Phase C deployment]**
+## 🚀 Live Project Website
+👉 **Click here to test the live application:** [https://ai-spam-detector-pro.streamlit.app/](https://ai-spam-detector-pro.streamlit.app/)
 
 ## 🧠 Core Machine Learning Architecture
 * **Algorithm:** Multinomial Naive Bayes (MNB) with customized alpha smoothing (`alpha=0.05`).
