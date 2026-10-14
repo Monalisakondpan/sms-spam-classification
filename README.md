@@ -2,8 +2,18 @@
 
 An end-to-end Machine Learning web application that analyzes incoming text messages and email contents to detect fraudulent phishing scams, promotional spam, and hazardous links with high mathematical precision.
 
+## 📸 Project Interface Walkthrough
+<p align="center">
+  <img src="screenshots/img.png" width="48%" alt="Single Message Input Workspace">
+  <img src="screenshots/img_1.png" width="48%" alt="AI Prediction Classification Evaluation">
+</p>
+<p align="center">
+  <img src="screenshots/img_2.png" width="48%" alt="Batch Spreadsheet Uploader Zone">
+  <img src="screenshots/img_3.png" width="48%" alt="Bulk Processing Summary Analytics Grid">
+</p>
+
 ## 🚀 Live Project Website
-👉 **Click here to test the live application:** [https://ai-spam-detector-pro.streamlit.app/](https://ai-spam-detector-pro.streamlit.app/)
+👉 **Click here to test the live application:** [https://streamlit.app](https://streamlit.app)
 
 ## 🧠 Core Machine Learning Architecture
 * **Algorithm:** Multinomial Naive Bayes (MNB) with customized alpha smoothing (`alpha=0.05`).
