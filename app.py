@@ -1,15 +1,17 @@
+import nltk
 import streamlit as st
+
+# 1. Force download internal datasets at the absolute start of server initialization
+nltk.download('punkt', quiet=True)
+nltk.download('punkt_tab', quiet=True)
+nltk.download('stopwords', quiet=True)
+
 import pickle
 import string
-import nltk
 import time
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
-
-# 1. Download necessary NLTK components quietly
-nltk.download('punkt', quiet=True)
-nltk.download('stopwords', quiet=True)
 
 ps = PorterStemmer()
 
@@ -25,7 +27,7 @@ SPAM_TRIGGER_KEYWORDS = [
 ]
 
 
-# 2. OPTIMIZED: Text Preprocessing Function (Handles symbols and alternative encodings safely)
+# 2. Optimized Text Preprocessing Function (Handles symbols and alternative encodings safely)
 def transform_text(text):
     text = str(text).lower()
 
