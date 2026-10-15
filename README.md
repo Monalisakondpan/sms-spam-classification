@@ -13,7 +13,7 @@ An end-to-end Machine Learning web application that analyzes incoming text messa
 </p>
 
 ## 🚀 Live Project Website
-👉 **Click here to test the live application:** [https://streamlit.app](https://streamlit.app)
+👉 **Click here to test the live application:** [https://ai-spam-detector-pro.streamlit.app](https://ai-spam-detector-pro.streamlit.app)
 
 ## 🧠 Core Machine Learning Architecture
 * **Algorithm:** Multinomial Naive Bayes (MNB) with customized alpha smoothing (`alpha=0.05`).
