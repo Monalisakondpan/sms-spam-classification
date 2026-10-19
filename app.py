@@ -68,7 +68,7 @@ st.divider()
 tabs = st.tabs(["💬 Single Message Workspace", "📊 Batch Spreadsheet Uploader Zone"])
 
 # --- Tab 1: Single Prediction Layer ---
-with tabs[0]:
+with tabs:
     st.subheader("Interactive User Workspace")
     input_sms = st.text_area("Enter the text message contents below:", key="single_input", height=150)
 
@@ -80,27 +80,26 @@ with tabs[0]:
 
                 # Model raw predictions
                 result = model.predict(vector_input)
-                is_spam = int(result) == 1
+
+                # Safe array comparison fix
+                is_spam = (result[0] == 1)
 
                 # Append to session history log
                 st.session_state.history.append(input_sms)
 
-                # Enforce array index scalar conversion patch for type safety
                 if is_spam:
                     st.error("🚨 This message is classified as SPAM.")
-
                     st.markdown("#### 📈 AI Confidence Allocation Distribution")
                     st.bar_chart(pd.DataFrame({"Confidence Allocation": [0.03, 0.97]}, index=["HAM (Safe)", "SPAM"]))
                 else:
                     st.success("✅ This message is classified as HAM (Safe).")
-
                     st.markdown("#### 📈 AI Confidence Allocation Distribution")
                     st.bar_chart(pd.DataFrame({"Confidence Allocation": [0.99, 0.01]}, index=["HAM (Safe)", "SPAM"]))
         else:
             st.warning("Please enter a valid text payload first.")
 
 # --- Tab 2: Batch Processing Layer ---
-with tabs[1]:
+with tabs:
     st.subheader("Bulk Processing Summary Analytics Grid")
     st.write("Upload a `.csv` spreadsheet file containing text data to execute bulk analysis algorithms.")
 
@@ -110,7 +109,6 @@ with tabs[1]:
         try:
             df = pd.read_csv(uploaded_file)
 
-            # Look for standard text column namings dynamically
             text_col = None
             for col in df.columns:
                 if col.lower() in ['text', 'message', 'sms', 'v2', 'sms_text']:
@@ -130,20 +128,18 @@ with tabs[1]:
                         cleaned = transform_text(raw_text)
                         vectorized = tfidf.transform([cleaned])
                         pred = model.predict(vectorized)
-                        predictions.append("SPAM" if int(pred) == 1 else "HAM (Safe)")
+                        # Applied safe array comparison here as well
+                        predictions.append("SPAM" if (pred[0] == 1) else "HAM (Safe)")
 
-                    # Append findings directly back to dataframe view
                     df['AI_Classification_Verdict'] = predictions
 
                     st.success(f"Successfully processed {len(df)} message nodes!")
                     st.dataframe(df, use_container_width=True)
 
-                    # --- Data Breakdown Analytics Visualizations ---
                     st.markdown("### 📊 Batch Analytics Breakdown")
                     verdict_counts = df['AI_Classification_Verdict'].value_counts()
                     st.bar_chart(verdict_counts)
 
-                    # Generate a downloadable csv download layout link
                     csv_data = df.to_csv(index=False).encode('utf-8')
                     st.download_button(
                         label="📥 Export Processed Batch Results",
