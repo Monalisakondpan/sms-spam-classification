@@ -64,11 +64,11 @@ with col_alpha:
 
 st.divider()
 
-# --- Navigation Architecture ---
-tabs = st.tabs(["💬 Single Message Workspace", "📊 Batch Spreadsheet Uploader Zone"])
+# --- Fixed Navigation Architecture ---
+tab1, tab2 = st.tabs(["💬 Single Message Workspace", "📊 Batch Spreadsheet Uploader Zone"])
 
 # --- Tab 1: Single Prediction Layer ---
-with tabs:
+with tab1:
     st.subheader("Interactive User Workspace")
     input_sms = st.text_area("Enter the text message contents below:", key="single_input", height=150)
 
@@ -81,8 +81,11 @@ with tabs:
                 # Model raw predictions
                 result = model.predict(vector_input)
 
-                # Safe array comparison fix
-                is_spam = (result[0] == 1)
+                # Fixed: Extract first value if array to get direct boolean comparison
+                if isinstance(result, np.ndarray):
+                    is_spam = bool(result[0] == 1)
+                else:
+                    is_spam = bool(result == 1)
 
                 # Append to session history log
                 st.session_state.history.append(input_sms)
@@ -99,7 +102,7 @@ with tabs:
             st.warning("Please enter a valid text payload first.")
 
 # --- Tab 2: Batch Processing Layer ---
-with tabs:
+with tab2:
     st.subheader("Bulk Processing Summary Analytics Grid")
     st.write("Upload a `.csv` spreadsheet file containing text data to execute bulk analysis algorithms.")
 
@@ -128,8 +131,14 @@ with tabs:
                         cleaned = transform_text(raw_text)
                         vectorized = tfidf.transform([cleaned])
                         pred = model.predict(vectorized)
-                        # Applied safe array comparison here as well
-                        predictions.append("SPAM" if (pred[0] == 1) else "HAM (Safe)")
+
+                        # Fixed array unpack logic for loops
+                        if isinstance(pred, np.ndarray):
+                            row_is_spam = (pred[0] == 1)
+                        else:
+                            row_is_spam = (pred == 1)
+
+                        predictions.append("SPAM" if row_is_spam else "HAM (Safe)")
 
                     df['AI_Classification_Verdict'] = predictions
 
