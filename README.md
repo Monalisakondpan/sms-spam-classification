@@ -1,46 +1,45 @@
-# 🛡️ Advanced AI Spam Detector Pro
+# 📬 Distributed SMS Spam Classification Platform
 
-An end-to-end Machine Learning web application that analyzes incoming text messages and email contents to detect fraudulent phishing scams, promotional spam, and hazardous links with high mathematical precision.
+A production-ready, microservice-based Natural Language Processing (NLP) system decoupled into independent containerized environments. The platform separates the web user application interface from a high-performance machine learning inference engine.
 
-## 📸 Project Interface Walkthrough
-<p align="center">
-  <img src="screenshots/img.png" width="48%" alt="Single Message Input Workspace">
-  <img src="screenshots/img_1.png" width="48%" alt="AI Prediction Classification Evaluation">
-</p>
-<p align="center">
-  <img src="screenshots/img_2.png" width="48%" alt="Batch Spreadsheet Uploader Zone">
-  <img src="screenshots/img_3.png" width="48%" alt="Bulk Processing Summary Analytics Grid">
-</p>
+## 🏗️ Microservice System Architecture
 
-## 🚀 Live Project Website
-👉 **Click here to test the live application:** [https://ai-spam-detector-pro.streamlit.app](https://ai-spam-detector-pro.streamlit.app)
+The project has been refactored from a monolithic script into a distributed system to ensure high availability, fault isolation, and independent scaling:
 
-## 🧠 Core Machine Learning Architecture
-* **Algorithm:** Multinomial Naive Bayes (MNB) with customized alpha smoothing (`alpha=0.05`).
-* **Text Pipeline:** Character-Level N-gram Feature Extraction (`ngram_range=(3,5)`), allowing the model to analyze sub-word patterns and catch spammers' formatting tricks (like dashes or currency symbols) that traditional word-tokenizers miss.
-* **Feature Scope:** Tuned up to 10,000 max character feature definitions to isolate high-risk patterns.
+* **Presentation Layer (`frontend/`):** A lightweight web client built with **Streamlit** that serves the user interface. It contains zero machine learning logic and delegates classification calculations entirely via network payloads.
+* **Inference Engine (`backend/`):** A high-performance **FastAPI** server that houses a Multinomial Naive Bayes model trained with custom alpha smoothing (`alpha=0.05`) and character-level N-gram processing (`ngram_range=(3,5)`).
+* **Virtual Private Network:** Both services run in completely isolated sandboxed Linux environments (`python:3.14-rc-slim`), securely networked together via a private **Docker Compose** network bridge mapping localized ports.
 
-## ✨ Advanced Features Built:
-1. **Interactive User Workspace:** Beautiful web layout with customized red/green container alerts.
-2. **Live Metrics Calculator:** Automatic character and word counter updates.
-3. **Trigger Keyword Panels:** Dynamically scans texts to reveal the exact high-risk tokens flagging the message.
-4. **Session History Trackers:** Dynamic stateful sidebar monitors and logs all calculations during active user browsing.
-5. **Batch Processing Pipelines:** Dedicated file uploader panel supporting drag-and-drop bulk processing of complete `.csv` spreadsheets with structural results export.
+---
 
-## ⚙️ Installation & Local Setup Instructions
+## 🧠 Distributed Technology Stack & Frameworks
+* **Core Language Paradigms:** Python 3.14
+* **API Framework & Schema Validation:** FastAPI, Pydantic, Uvicorn
+* **Container Orchestration Engine:** Docker, Docker Compose
+* **Machine Learning & NLP Pipelines:** Scikit-Learn, NLTK, Pandas, NumPy
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com
-   cd sms-spam-classification
-   ```
+---
 
-2. **Install Required Package Dependencies:**
-   ```bash
-   pip install streamlit scikit-learn pandas nltk
-   ```
+## 🚀 Local Installation & Container Deployment
 
-3. **Launch the Local Development Web App Server:**
-   ```bash
-   streamlit run app.py
-   ```
+### Prerequisites
+Ensure **Docker Desktop** is running locally on your computer environment.
+
+### 1. Spin Up the Multi-Container Network
+Open your terminal panel within the root project workspace folder and execute this single orchestration script:
+```bash
+docker compose up --build
+```
+
+### 2. Access the Microservices Interface
+Once Docker completes the system layer assembly, the isolated instances will be live across your network loops:
+* 🖥️ **Web User Application Interface:** `http://localhost:8501`
+* 📑 **Interactive OpenAPI Swagger Documentation:** `http://localhost:8000/docs`
+* 🩺 **Backend Microservice Health Check Endpoint:** `http://localhost:8000/health`
+
+---
+
+## 🛡️ Enterprise Systems Features Implemented
+1. **Decoupled System Fault Isolation:** If the Streamlit frontend crashes due to massive client traffic, the core inference engine layer remains fully functional and accessible by other microservices.
+2. **Strict Schema Type Validation:** Built custom **Pydantic data models** on the POST endpoints, serving as a protective payload gatekeeper before strings hit the Scikit-learn vectors.
+3. **Automated Orchestration Health Checks:** Implemented an explicit GET `/health` endpoint providing instant application liveness metrics designed for cluster orchestrators like Kubernetes.
