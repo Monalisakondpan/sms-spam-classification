@@ -2,6 +2,11 @@
 
 A production-ready, microservice-based Natural Language Processing (NLP) system decoupled into independent containerized environments. The platform separates the web user application interface from a high-performance machine learning inference engine.
 
+## 🚀 Live Production Web Dashboard
+👉 **Click here to interact with the live application:** [https://ai-spam-detector-v2.streamlit.app/](https://ai-spam-detector-v2.streamlit.app/)
+
+---
+
 ## 🏗️ Microservice System Architecture
 
 The project has been refactored from a monolithic script into a distributed system to ensure high availability, fault isolation, and independent scaling:
@@ -20,7 +25,7 @@ The project has been refactored from a monolithic script into a distributed syst
 
 ---
 
-## 🚀 Local Installation & Container Deployment
+## ⚙️ Local Installation & Container Deployment
 
 ### Prerequisites
 Ensure **Docker Desktop** is running locally on your computer environment.
@@ -31,7 +36,7 @@ Open your terminal panel within the root project workspace folder and execute th
 docker compose up --build
 ```
 
-### 2. Access the Microservices Interface
+### 2. Access the Localized Microservices Interface
 Once Docker completes the system layer assembly, the isolated instances will be live across your network loops:
 * 🖥️ **Web User Application Interface:** `http://localhost:8501`
 * 📑 **Interactive OpenAPI Swagger Documentation:** `http://localhost:8000/docs`
